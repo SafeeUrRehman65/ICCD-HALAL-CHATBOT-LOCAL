@@ -4,7 +4,7 @@ const VoiceBox = () => {
       <div className="h-[1vh] w-[2.5px] rounded-full bg-[#ECECEC]"></div>
       <div className="h-[3vh] w-[2.5px] rounded-full bg-[#ECECEC]"></div>
       <div className="h-[2vh] w-[2.5px] rounded-full bg-[#ECECEC]"></div>
-      <div className="h-[1.2vh] w-[2.5px] rounded-full bg-[#ECECEC]"></div>
+      <div className="h-[1.1vh] w-[2.5px] rounded-full bg-[#ECECEC]"></div>
     </div>
   );
 };

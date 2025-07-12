@@ -49,3 +49,6 @@
 .bg-down-arrow{
   background-image: url('./assets/down-arrow.png');
 }
+.bg-arrow-top{
+  background-image: url('./assets/arrow-top.png');
+}
