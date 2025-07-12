@@ -17,9 +17,12 @@ function App() {
   // Logic to handle Enter key press after entering prompt
   const handleEnterPress = (e) => {
     if (PromptRef.current.value != "") {
-      if (e.key == "Enter") {
-        EnterPromptRef.current.value = "";
-      }
+      // if (e.key == "Enter") {
+      // }
+      PromptRef.current.value = "";
+      if (VoiceBoxRef.current) VoiceBoxRef.current.classList.remove("hidden");
+      if (EnterPromptRef.current)
+        EnterPromptRef.current.classList.add("hidden");
     }
   };
 
@@ -103,6 +106,7 @@ function App() {
                     </div>
                   </div>
                   <div
+                    onClick={handleEnterPress}
                     ref={EnterPromptRef}
                     className="hidden enter-prompt cursor-pointer ml-auto bg-gray-50 hover:bg-neutral-400 rounded-full w-10 h-10 flex justify-center items-center"
                   >
