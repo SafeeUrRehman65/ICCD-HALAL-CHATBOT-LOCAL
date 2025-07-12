@@ -14,16 +14,27 @@ function App() {
   const VoiceBoxRef = useRef();
   const EnterPromptRef = useRef();
 
+  // Logic to handle Enter key press after entering prompt
+  const handleEnterPress = (e) => {
+    if (PromptRef.current.value != "") {
+      if (e.key == "Enter") {
+        console.log("How are you dear");
+      }
+    }
+  };
+
   useEffect(() => {
     const handleInputPrompt = () => {
       if (PromptRef.current) {
         if (PromptRef.current.value != "") {
-          if (VoiceBox.current) VoiceBoxRef.current.classList.add("hidden");
-          if (EnterPromptRef.current) EnterPromptRef.current.classList.remove("hidden");
-        }
-        else{
-          if (VoiceBox.current) VoiceBoxRef.current.classList.remove("hidden");
-          if (EnterPromptRef.current) EnterPromptRef.current.classList.add("hidden");
+          if (VoiceBoxRef.current) VoiceBoxRef.current.classList.add("hidden");
+          if (EnterPromptRef.current)
+            EnterPromptRef.current.classList.remove("hidden");
+        } else {
+          if (VoiceBoxRef.current)
+            VoiceBoxRef.current.classList.remove("hidden");
+          if (EnterPromptRef.current)
+            EnterPromptRef.current.classList.add("hidden");
         }
       }
     };
@@ -64,6 +75,7 @@ function App() {
                   type="text"
                   autoFocus
                   placeholder="Ask anything"
+                  onKeyDown={handleEnterPress}
                 />
                 <div className="flex px-3">
                   <div className="w-5/6 flex">
