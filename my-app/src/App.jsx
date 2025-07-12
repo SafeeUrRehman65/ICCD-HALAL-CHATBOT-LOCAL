@@ -9,14 +9,28 @@ import VoiceBox from "./components/Voice-Icon";
 
 function App() {
   const [count, setCount] = useState(0);
+
   const PromptRef = useRef();
+  const VoiceBoxRef = useRef();
+  const EnterPromptRef = useRef();
 
   useEffect(() => {
-    const handleInputPrompt = () => {};
+    const handleInputPrompt = () => {
+      if (PromptRef.current) {
+        if (PromptRef.current.value != "") {
+          if (VoiceBox.current) VoiceBoxRef.current.classList.add("hidden");
+          if (EnterPromptRef.current) EnterPromptRef.current.classList.remove("hidden");
+        }
+        else{
+          if (VoiceBox.current) VoiceBoxRef.current.classList.remove("hidden");
+          if (EnterPromptRef.current) EnterPromptRef.current.classList.add("hidden");
+        }
+      }
+    };
+
     if (PromptRef.current) {
       PromptRef.current.addEventListener("input", handleInputPrompt);
     }
-
     return () => {
       if (PromptRef.current) {
         PromptRef.current.removeEventlistener("input", handleInputPrompt);
@@ -65,7 +79,10 @@ function App() {
                       </div>
                     </div>
                   </div>
-                  <div className="ml-auto hidden flex cursor-pointer hover:bg-[#616161] transition-all duration-200 justify-center w-[90px] p-2 bg-[#515151] rounded-full">
+                  <div
+                    ref={VoiceBoxRef}
+                    className="voice-box ml-auto flex cursor-pointer hover:bg-[#616161] transition-all duration-200 justify-center w-[90px] p-2 bg-[#515151] rounded-full"
+                  >
                     <VoiceBox />
                     <div className="pl-2">
                       <p className="font-semibold text-[#ECECEC] text-sm">
@@ -73,7 +90,10 @@ function App() {
                       </p>
                     </div>
                   </div>
-                  <div className="enter-prompt cursor-pointer ml-auto bg-gray-50 hover:bg-gray-700 hover:bg-opacity-20 rounded-full w-10 h-10 flex justify-center items-center">
+                  <div
+                    ref={EnterPromptRef}
+                    className="hidden enter-prompt cursor-pointer ml-auto bg-gray-50 hover:bg-neutral-400 rounded-full w-10 h-10 flex justify-center items-center"
+                  >
                     <div className="enter-prompt justify-center bg-arrow-top w-[16px] h-[16px] bg-cover hover:bg-opacity-20"></div>
                   </div>
                 </div>
