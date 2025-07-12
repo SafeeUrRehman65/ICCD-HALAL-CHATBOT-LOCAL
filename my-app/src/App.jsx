@@ -73,8 +73,9 @@ function App() {
                       </p>
                     </div>
                   </div>
-
-                  <div className="enter-prompt cursor-pointer justify-center bg-arrow-top w-10 h-10 bg-cover ml-auto rounded-full hover:bg-opacity-20"></div>
+                  <div className="enter-prompt ml-auto bg-white rounded-full w-10 h-10 flex justify-center items-center">
+                    <div className="enter-prompt cursor-pointer justify-center bg-arrow-top w-[16px] h-[16px] bg-cover hover:bg-opacity-20"></div>
+                  </div>
                 </div>
               </div>
             </div>
