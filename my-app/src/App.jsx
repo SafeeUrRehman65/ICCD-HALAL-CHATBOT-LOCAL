@@ -18,7 +18,7 @@ function App() {
   const handleEnterPress = (e) => {
     if (PromptRef.current.value != "") {
       if (e.key == "Enter") {
-        console.log("How are you dear");
+        EnterPromptRef.current.value = "";
       }
     }
   };
