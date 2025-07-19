@@ -17,9 +17,10 @@ function App() {
   // Logic to handle Enter key press after entering prompt
   const handleEnterPress = (e) => {
     if (PromptRef.current.value != "") {
-      // if (e.key == "Enter") {
-      // }
-      PromptRef.current.value = "";
+      if (e.key == "Enter" || e.type === "click") {
+        PromptRef.current.value = "";
+      }
+
       if (VoiceBoxRef.current) VoiceBoxRef.current.classList.remove("hidden");
       if (EnterPromptRef.current)
         EnterPromptRef.current.classList.add("hidden");
@@ -42,12 +43,16 @@ function App() {
       }
     };
 
-    if (PromptRef.current) {
-      PromptRef.current.addEventListener("input", handleInputPrompt);
+    const inputEl = PromptRef.current;
+    if (inputEl) {
+      inputEl.addEventListener("input", handleInputPrompt);
+      inputEl.addEventListener("keydown", handleInputPrompt); // 🔄 NEW LINE
     }
+
     return () => {
-      if (PromptRef.current) {
-        PromptRef.current.removeEventlistener("input", handleInputPrompt);
+      if (inputEl) {
+        inputEl.removeEventListener("input", handleInputPrompt);
+        inputEl.removeEventListener("keydown", handleInputPrompt); // 🔄 NEW LINE
       }
     };
   }, []);
