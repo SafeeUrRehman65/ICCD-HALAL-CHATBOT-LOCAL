@@ -1,4 +1,6 @@
 // Example controller to handle user routes
+const { SendPrompt } = require("../../AIchat");
+
 const getUsers = (req, res) => {
   // Simulating a database call
   const users = [
@@ -9,15 +11,13 @@ const getUsers = (req, res) => {
   res.status(200).json({ users });
 };
 
-const createUser = (req, res) => {
-  const { name } = req.body;
-  if (!name) {
-    return res.status(400).json({ message: "Name is required" });
+const sendResponse = (req, res) => {
+  const { prompt } = req.body;
+  if (!prompt) {
+    return res.status(400).json({ message: "Prompt is missing or empty" });
   }
 
-  // Simulate creating a user in the database
-  const newUser = { id: Date.now(), name };
-  res.status(201).json({ message: "User created", user: newUser });
+  res.status(201).json({ response: SendPrompt(prompt) });
 };
 
-module.exports = { getUsers, createUser };
+module.exports = { getUsers, sendResponse };

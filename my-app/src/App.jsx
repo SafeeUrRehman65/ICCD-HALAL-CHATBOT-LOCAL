@@ -14,10 +14,34 @@ function App() {
   const VoiceBoxRef = useRef();
   const EnterPromptRef = useRef();
 
+  const sendPromptToServer = async (prompt) => {
+    try {
+      const response = fetch("http://localhost:3000/api/users", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      });
+      console.log("Here is the response",response)
+      // const data = await response.json();
+
+      if (response.ok) {
+        console.log("Received response correctly", data.response);
+      } else {
+        console.log("Some error occured", data.message);
+      }
+    } catch (error) {
+      console.log("Network error", error);
+    }
+  };
+
   // Logic to handle Enter key press after entering prompt
   const handleEnterPress = (e) => {
     if (PromptRef.current.value != "") {
       if (e.key == "Enter" || e.type === "click") {
+        const prompt = PromptRef.current.value;
+        sendPromptToServer(prompt);
         PromptRef.current.value = "";
       }
 
