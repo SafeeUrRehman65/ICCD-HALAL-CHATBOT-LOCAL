@@ -16,15 +16,17 @@ function App() {
 
   const sendPromptToServer = async (prompt) => {
     try {
-      const response = fetch("http://localhost:3000/api/users", {
+      const response = await fetch("http://localhost:3000/api/users", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify({ prompt }),
       });
-      console.log("Here is the response",response)
-      // const data = await response.json();
+
+      const data = await response.json();
+
+      console.log("Here is the response", data.data);
 
       if (response.ok) {
         console.log("Received response correctly", data.response);

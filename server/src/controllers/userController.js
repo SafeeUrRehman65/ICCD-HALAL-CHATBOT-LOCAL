@@ -11,13 +11,22 @@ const getUsers = (req, res) => {
   res.status(200).json({ users });
 };
 
-const sendResponse = (req, res) => {
+const sendResponse = async (req, res) => {
   const { prompt } = req.body;
+  console.log(req.body);
   if (!prompt) {
     return res.status(400).json({ message: "Prompt is missing or empty" });
   }
 
-  res.status(201).json({ response: SendPrompt(prompt) });
+  try {
+    const aiResponse = await SendPrompt(prompt);
+
+    res.status(201).json({ data: aiResponse });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to get AI Response", error: error.message });
+  }
 };
 
 module.exports = { getUsers, sendResponse };
