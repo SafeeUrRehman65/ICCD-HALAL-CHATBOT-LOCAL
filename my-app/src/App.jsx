@@ -26,7 +26,7 @@ function App() {
 
       const data = await response.json();
 
-      console.log("Here is the response", data.data);
+      console.log("Here is the response", data);
 
       if (response.ok) {
         console.log("Received response correctly", data.response);
