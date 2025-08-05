@@ -1,5 +1,12 @@
+const {
+  getModels,
+  getProviders,
+  getFeatures,
+} = require("../models/usermodels");
+
+//  getModels, getProviders, getFeatures
 // Example controller to handle user routes
-const { SendPrompt } = require("../../AIchat");
+const { SendPrompt } = require("../../AIchat.js");
 
 const getUsers = (req, res) => {
   // Simulating a database call
@@ -12,14 +19,14 @@ const getUsers = (req, res) => {
 };
 
 const sendResponse = async (req, res) => {
-  const { prompt } = req.body;
+  const { prompt, provider, model, feature } = req.body;
   console.log(req.body);
   if (!prompt) {
     return res.status(400).json({ message: "Prompt is missing or empty" });
   }
 
   try {
-    const aiResponse = await SendPrompt(prompt);
+    const aiResponse = await SendPrompt(prompt, provider, model, feature);
 
     res.status(201).json({ data: aiResponse });
   } catch (error) {

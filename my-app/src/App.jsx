@@ -2,34 +2,143 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import { MdAttachFile } from "react-icons/md";
-import { CiGlobe } from "react-icons/ci";
+
 import { useRef } from "react";
 import "./App.css";
 import VoiceBox from "./components/Voice-Icon";
+import FilterChip from "./components/FilterChip";
 
 function App() {
   const [count, setCount] = useState(0);
-
+  const [Prompt_Response, setPrompt_Response] = useState([]);
+  const [provider, setprovider] = useState("cerebras");
+  const [model, setmodel] = useState("meta-llama/Llama-3.3-70B-Instruct");
+  const [feature, setfeature] = useState("Text Generation");
   const PromptRef = useRef();
   const VoiceBoxRef = useRef();
+  const dropdownRef = useRef();
   const EnterPromptRef = useRef();
+  const bottomRef = useRef();
+  const [scrollTrigger, setScrollTrigger] = useState(false);
+  const [ModelData, setModelData] = useState();
+  const [ModelisOpen, setModelisOpen] = useState(false);
 
-  const sendPromptToServer = async (prompt) => {
+  const addPrompt = (prompt) => {
+    if (!prompt.trim()) return;
+
+    setPrompt_Response((prev) => [...prev, { prompt: prompt, response: "" }]);
+    setScrollTrigger((prev) => !prev);
+  };
+
+  const addResponse = (response) => {
+    setPrompt_Response((prev) => {
+      if (prev.length === 0) return prev;
+
+      const LastIndex = prev.length - 1;
+      const updatedMessage = [...prev];
+      updatedMessage[LastIndex] = {
+        ...updatedMessage[LastIndex],
+        response: response,
+      };
+
+      return updatedMessage;
+    });
+  };
+
+  const renderFormattedText = (text) => {
+    // Split text into parts, preserving the bold markers
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+
+    return parts.map((part, index) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        // This is a bold section
+        const boldText = part.slice(2, -2); // Remove the ** markers
+        return <strong key={index}>{boldText}</strong>;
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
+
+  const FetchMdodelInfo = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/models", {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log("Recieved Model Information correctly haah", data.models);
+        setModelData(data.models);
+      } else {
+        console.log("Some error occured", data.message);
+      }
+    } catch (error) {
+      console.log(
+        "Network Error: Failed while sending request to server",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    FetchMdodelInfo();
+  }, []);
+
+  useEffect(() => {
+    function handleclickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setModelisOpen(false);
+      }
+    }
+
+    if (ModelisOpen) {
+      document.addEventListener("mousedown", handleclickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleclickOutside);
+    };
+  }, [ModelisOpen]);
+
+  const sendPromptToServer = async (prompt, provider, model, feature) => {
     try {
       const response = await fetch("http://localhost:3000/api/users", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({
+          prompt,
+          provider,
+          model,
+          feature,
+        }),
       });
 
       const data = await response.json();
-
-      console.log("Here is the response", data);
-
       if (response.ok) {
-        console.log("Received response correctly", data.response);
+        console.log("Received response correctly", data.data);
+        let currentText = "";
+        const complete_response = data.data;
+        const words = complete_response.trim().split(/\s+/);
+        addResponse(""); // Initialize once
+
+        if (words.length > 0) {
+          for (let i = 0; i < words.length; i++) {
+            const word = words[i];
+            currentText += word + " ";
+
+            // Update every 4 words or on the last word
+            if (i % 4 === 0 || i === words.length - 1) {
+              addResponse(currentText);
+
+              await new Promise((resolve) => setTimeout(resolve, 5));
+            }
+          }
+        }
+        window.scrollTo(0, document.body.scrollHeight);
       } else {
         console.log("Some error occured", data.message);
       }
@@ -43,7 +152,9 @@ function App() {
     if (PromptRef.current.value != "") {
       if (e.key == "Enter" || e.type === "click") {
         const prompt = PromptRef.current.value;
-        sendPromptToServer(prompt);
+
+        addPrompt(prompt);
+        sendPromptToServer(prompt, provider, model, feature);
         PromptRef.current.value = "";
       }
 
@@ -83,6 +194,10 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [scrollTrigger]);
+
   return (
     <div>
       <div className="h-[100vh] w-[100vw]">
@@ -90,7 +205,7 @@ function App() {
           <div className="w-full">
             <div className="navbar px-4 h-[8vh] flex justify-between items-center w-full border-b border-[#4D4D4D]">
               <div className="hover:bg-neutral-700 hover:bg-opacity-20 p-2  cursor-pointer rounded-lg">
-                <div className="w-5 h-5  font-semibold bg-edit bg-cover "></div>
+                <div className="w-5 h-5 font-semibold bg-edit bg-cover "></div>
               </div>
               <div className="flex items-center text-lg text-white hover:bg-neutral-700 hover:bg-opacity-20 px-2 py-1 rounded-lg cursor-pointer">
                 <p>MatzGPT</p>
@@ -100,7 +215,22 @@ function App() {
                 <p className="font-semibold text-xs">Log in</p>
               </div>
             </div>
-            <div className="response-box w-full h-[73vh]"></div>
+            <div className="prompt-response-box flex flex-col gap-y-8 w-full h-[73vh] overflow-y-auto p-8 scrollbar">
+              {Prompt_Response.map((pair, index) => (
+                <div className="flex flex-col gap-y-4 border-b border-[#303030]">
+                  <div className="self-end prompt max-w-3/4 bg-[#303030] rounded-xl h-max p-3">
+                    <p className="text-white">{pair["prompt"]}</p>
+                  </div>
+
+                  <div className="mb-4 response rounded-xl h-max p-3 md:max-w-1/2">
+                    <p className="text-white leading-7.5">
+                      {renderFormattedText(pair["response"])}
+                    </p>
+                  </div>
+                </div>
+              ))}
+              <div ref={bottomRef} className="dummy-ref"></div>
+            </div>
             <div className="input-box w-full flex justify-center">
               <div className="w-[95%] h-[14vh] bg-[#303030] rounded-3xl">
                 <input
@@ -117,24 +247,32 @@ function App() {
                       <div className="border border-[#4D4D4D] flex cursor-pointer justify-evenly pl-2 pr-3 py-2 rounded-full">
                         <MdAttachFile className="mr-2 text-white text-xl" />
 
-                        <p className="text-white text-sm font-bold">Attach</p>
+                        <p className="text-white text-sm font-semibold">
+                          Attach
+                        </p>
                       </div>
-                      <div className="cursor-pointer flex justify-evenly pl-2 pr-3 py-2 rounded-full border border-[#4D4D4D] ">
-                        <CiGlobe className="mr-2 text-white text-xl" />
-                        <p className="text-white text-sm font-bold">Search</p>
-                      </div>
+                      <FilterChip
+                        ModelData={ModelData}
+                        ModelisOpen={ModelisOpen}
+                        setModelisOpen={setModelisOpen}
+                        ref={dropdownRef}
+                        setprovider={setprovider}
+                        setmodel={setmodel}
+                        setfeature={setfeature}
+                      />
                     </div>
                   </div>
+
                   <div
                     ref={VoiceBoxRef}
-                    className="voice-box ml-auto flex cursor-pointer hover:bg-[#616161] transition-all duration-200 justify-center w-[90px] p-2 bg-[#515151] rounded-full"
+                    className="voice-box ml-auto flex cursor-pointer hover:bg-[#616161] transition-all duration-200 justify-center w-max p-2 bg-[#515151] rounded-full"
                   >
                     <VoiceBox />
-                    <div className="pl-2">
+                    {/* <div className="pl-2">
                       <p className="font-semibold text-[#ECECEC] text-sm">
                         Voice
                       </p>
-                    </div>
+                    </div> */}
                   </div>
                   <div
                     onClick={handleEnterPress}

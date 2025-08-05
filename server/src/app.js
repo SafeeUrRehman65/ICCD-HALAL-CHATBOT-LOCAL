@@ -10,7 +10,8 @@ app.use(morgan("dev"));
 // Middleware
 // const authMiddleware = require("./src/middlewares/authMiddleware");
 // Routes
-const userRoutes = require("./routes/userRoutes");
+const userRoutes = require("./routes/userRoutes.js");
+const modelRoutes = require("./routes/modelroutes.js");
 
 // Set up middleware for parsing JSON and URL-encoded data
 app.use(express.json()); // This allows us to handle JSON requests
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Use the user routes
 app.use("/api/users", userRoutes);
+app.use("/api/models", modelRoutes);
 
 // Start the server
 module.exports = app;

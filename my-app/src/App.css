@@ -43,12 +43,45 @@
   color: #888;
 } */
 
-.bg-edit{
-  background-image: url('./assets/edit.png');
+.bg-edit {
+  background-image: url("./assets/edit.png");
 }
-.bg-down-arrow{
-  background-image: url('./assets/down-arrow.png');
+.bg-down-arrow {
+  background-image: url("./assets/down-arrow.png");
 }
-.bg-arrow-top{
-  background-image: url('./assets/arrow-top.png');
+.bg-arrow-top {
+  background-image: url("./assets/arrow-top.png");
+}
+.bg-diamond {
+  background-image: url("./assets/diamond.png");
+}
+
+@layer utilities {
+  /* Chrome, Edge, and Safari */
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f1f1f1;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 100vh;
+    border: 2px solid #f1f1f1;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+  }
+
+  /* Firefox */
+  .scrollbar {
+    scrollbar-width: auto;
+    scrollbar-gutter: auto;
+    scrollbar-color: #cbd5e0 #1f1c1c;
+  }
 }
