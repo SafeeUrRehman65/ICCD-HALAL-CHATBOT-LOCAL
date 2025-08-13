@@ -1,0 +1,294 @@
+Inference_Provider,Model_Name,Supported_Feature
+Cerebras,Qwen/Qwen3-235B-A22B-Instruct-2507,Text Generation
+Cerebras,meta-llama/Llama-4-Scout-17B-16E-Instruct,Image-Text-to-Text
+Cerebras,Qwen/Qwen3-32B,Text Generation
+Cerebras,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+Novita,moonshotai/Kimi-K2-Instruct,Text Generation
+Novita,Qwen/Qwen3-235B-A22B-Instruct-2507,Text Generation
+Novita,deepseek-ai/DeepSeek-R1-0528,Text Generation
+Novita,meta-llama/Llama-3.1-8B-Instruct,Text Generation
+Novita,THUDM/GLM-4.1V-9B-Thinking,Image-Text-to-Text
+Novita,mistralai/Mistral-7B-Instruct-v0.3,Text Generation
+Novita,deepseek-ai/DeepSeek-R1,Text Generation
+Novita,meta-llama/Llama-4-Scout-17B-16E-Instruct,Image-Text-to-Text
+Novita,Wan-AI/Wan2.1-T2V-14B,Text-to-Video
+Novita,Qwen/Qwen3-235B-A22B,Text Generation
+Novita,meta-llama/Meta-Llama-3-8B-Instruct,Text Generation
+Novita,meta-llama/Llama-3.2-3B-Instruct,Text Generation
+Novita,Qwen/Qwen3-30B-A3B,Text Generation
+Novita,Qwen/Qwen3-32B,Text Generation
+Novita,deepseek-ai/DeepSeek-R1-0528-Qwen3-8B,Text Generation
+Novita,deepseek-ai/DeepSeek-V3,Text Generation
+Novita,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+Novita,baidu/ERNIE-4.5-21B-A3B-PT,Text Generation
+Novita,meta-llama/Llama-3.2-1B-Instruct,Text Generation
+Novita,deepseek-ai/DeepSeek-R1-Distill-Qwen-32B,Text Generation
+Novita,deepseek-ai/DeepSeek-V3-0324,Text Generation
+Novita,MiniMaxAI/MiniMax-M1-80k,Text Generation
+Novita,Sao10K/L3-8B-Stheno-v3.2,Text Generation
+Novita,Qwen/Qwen2.5-72B-Instruct,Text Generation
+Novita,deepseek-ai/DeepSeek-R1-Distill-Llama-8B,Text Generation
+Novita,THUDM/GLM-4-32B-0414,Text Generation
+Novita,baidu/ERNIE-4.5-VL-28B-A3B-PT,Image-Text-to-Text
+Novita,Sao10K/L3-8B-Lunaris-v1,Text Generation
+Novita,deepseek-ai/DeepSeek-R1-Distill-Llama-70B,Text Generation
+Novita,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,Text Generation
+Featherless AI,nvidia/OpenReasoning-Nemotron-32B,Text Generation
+Featherless AI,meta-llama/Llama-3.1-8B-Instruct,Text Generation
+Featherless AI,mistralai/Devstral-Small-2507,Text Generation
+Featherless AI,Qwen/Qwen3-1.7B,Text Generation
+Featherless AI,Qwen/Qwen3-8B,Text Generation
+Featherless AI,Qwen/Qwen3-32B,Text Generation
+Featherless AI,deepseek-ai/DeepSeek-R1-0528-Qwen3-8B,Text Generation
+Featherless AI,agentica-org/DeepSWE-Preview,Text Generation
+Featherless AI,google/gemma-3-27b-it,Image-Text-to-Text
+Featherless AI,mistralai/Mistral-7B-Instruct-v0.2,Text Generation
+Featherless AI,TinyLlama/TinyLlama-1.1B-Chat-v1.0,Text Generation
+Featherless AI,google/gemma-3-12b-it,Image-Text-to-Text
+Featherless AI,Qwen/QwQ-32B,Text Generation
+Featherless AI,mistralai/Magistral-Small-2506,Text Generation
+Featherless AI,meta-llama/Llama-3.1-8B,Text Generation
+Featherless AI,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+Featherless AI,Qwen/Qwen3-14B,Text Generation
+Featherless AI,PocketDoc/Dans-PersonalityEngine-V1.3.0-24b,Text Generation
+Featherless AI,HuggingFaceH4/zephyr-7b-beta,Text Generation
+Featherless AI,Qwen/Qwen2.5-7B,Text Generation
+Featherless AI,marcelbinz/Llama-3.1-Centaur-70B,Text Generation
+Featherless AI,Qwen/Qwen2.5-Coder-32B-Instruct,Text Generation
+Featherless AI,Intelligent-Internet/II-Medical-8B-1706,Text Generation
+Featherless AI,moonshotai/Kimi-Dev-72B,Text Generation
+Featherless AI,Qwen/Qwen2.5-Coder-7B-Instruct,Text Generation
+Featherless AI,deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B,Text Generation
+Featherless AI,Salesforce/Llama-xLAM-2-8b-fc-r,Text Generation
+Featherless AI,Intelligent-Internet/II-Medical-8B,Text Generation
+Featherless AI,sarvamai/sarvam-m,Text Generation
+Featherless AI,meta-llama/Meta-Llama-3-8B,Text Generation
+Fireworks,moonshotai/Kimi-K2-Instruct,Text Generation
+Fireworks,Qwen/Qwen3-235B-A22B-Instruct-2507,Text Generation
+Fireworks,deepseek-ai/DeepSeek-R1-0528,Text Generation
+Fireworks,meta-llama/Llama-3.1-8B-Instruct,Text Generation
+Fireworks,deepseek-ai/DeepSeek-R1,Text Generation
+Fireworks,meta-llama/Llama-4-Scout-17B-16E-Instruct,Image-Text-to-Text
+Fireworks,Qwen/Qwen3-235B-A22B,Text Generation
+Fireworks,Qwen/Qwen3-30B-A3B,Text Generation
+Fireworks,deepseek-ai/DeepSeek-V3,Text Generation
+Fireworks,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+Fireworks,Qwen/Qwen2.5-VL-32B-Instruct,Image-Text-to-Text
+Fireworks,deepseek-ai/DeepSeek-V3-0324,Text Generation
+Fireworks,meta-llama/Llama-4-Maverick-17B-128E-Instruct,Image-Text-to-Text
+Fireworks,meta-llama/Llama-3.1-70B-Instruct,Text Generation
+Fireworks,mistralai/Mixtral-8x22B-Instruct-v0.1,Text Generation
+Fireworks,meta-llama/Llama-3.1-405B-Instruct,Text Generation
+Fireworks,SentientAGI/Dobby-Unhinged-Llama-3.3-70B,Text Generation
+Nebius AI,black-forest-labs/FLUX.1-dev,Text-to-Image
+Nebius AI,deepseek-ai/DeepSeek-R1-0528,Text Generation
+Nebius AI,meta-llama/Llama-3.1-8B-Instruct,Text Generation
+Nebius AI,stabilityai/stable-diffusion-xl-base-1.0,Text-to-Image
+Nebius AI,deepseek-ai/DeepSeek-R1,Text Generation
+Nebius AI,black-forest-labs/FLUX.1-schnell,Text-to-Image
+Nebius AI,Qwen/Qwen3-Embedding-8B,Feature Extraction
+Nebius AI,Qwen/Qwen3-235B-A22B,Text Generation
+Nebius AI,Qwen/Qwen3-30B-A3B,Text Generation
+Nebius AI,Qwen/Qwen3-32B,Text Generation
+Nebius AI,Qwen/Qwen3-4B,Text Generation
+Nebius AI,deepseek-ai/DeepSeek-V3,Text Generation
+Nebius AI,google/gemma-3-27b-it,Image-Text-to-Text
+Nebius AI,Qwen/QwQ-32B,Text Generation
+Nebius AI,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+Nebius AI,nvidia/Llama-3_3-Nemotron-Super-49B-v1,Text Generation
+Nebius AI,mistralai/Mistral-Nemo-Instruct-2407,12B
+Nebius AI,Qwen/Qwen3-14B,Text Generation
+Nebius AI,Qwen/Qwen2.5-Coder-32B-Instruct,Text Generation
+Nebius AI,deepseek-ai/DeepSeek-V3-0324,Text Generation
+Nebius AI,Qwen/Qwen2.5-72B-Instruct,Text Generation
+Nebius AI,Qwen/Qwen2.5-VL-72B-Instruct,Image-Text-to-Text
+Nebius AI,mistralai/Mistral-Small-3.1-24B-Instruct-2503,Image-Text-to-Text
+Nebius AI,microsoft/phi-4,Text Generation
+Nebius AI,mistralai/Devstral-Small-2505,Text Generation
+Nebius AI,meta-llama/Llama-3.1-70B-Instruct,Text Generation
+Nebius AI,deepseek-ai/DeepSeek-R1-Distill-Llama-70B,Text Generation
+Nebius AI,intfloat/e5-mistral-7b-instruct,Feature Extraction
+Nebius AI,aaditya/Llama3-OpenBioLLM-70B,Text Generation
+Nebius AI,google/gemma-2-9b-it,Text Generation
+Together AI,moonshotai/Kimi-K2-Instruct,Text Generation
+Together AI,Qwen/Qwen3-235B-A22B-Instruct-2507,Text Generation
+Together AI,black-forest-labs/FLUX.1-dev,Text-to-Image
+Together AI,deepseek-ai/DeepSeek-R1-0528,Text Generation
+Together AI,mistralai/Mistral-7B-Instruct-v0.3,Text Generation
+Together AI,deepseek-ai/DeepSeek-R1,Text Generation
+Together AI,black-forest-labs/FLUX.1-schnell,Text-to-Image
+Together AI,meta-llama/Llama-4-Scout-17B-16E-Instruct,Image-Text-to-Text
+Together AI,Qwen/Qwen3-235B-A22B,Text Generation
+Together AI,meta-llama/Llama-3.2-3B-Instruct,Text Generation
+Together AI,mistralai/Mixtral-8x7B-Instruct-v0.1,Text Generation
+Together AI,deepseek-ai/DeepSeek-V3,Text Generation
+Together AI,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+Together AI,Qwen/Qwen2.5-Coder-32B-Instruct,Text Generation
+Together AI,deepseek-ai/DeepSeek-V3-0324,Text Generation
+Together AI,Qwen/Qwen2.5-72B-Instruct,Text Generation
+Together AI,NousResearch/Nous-Hermes-2-Mixtral-8x7B-DPO,Text Generation
+Together AI,meta-llama/Meta-Llama-3-70B-Instruct,Text Generation
+Together AI,Qwen/Qwen2.5-7B-Instruct,Text Generation
+Together AI,nvidia/Llama-3.1-Nemotron-70B-Instruct-HF,Text Generation
+Together AI,mistralai/Mistral-Small-24B-Instruct-2501,Text Generation
+Together AI,meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8,Image-Text-to-Text
+Together AI,Qwen/Qwen3-235B-A22B-FP8,Text Generation
+Together AI,meta-llama/Llama-2-70b-hf,Text Generation
+Together AI,Qwen/Qwen2-72B-Instruct,Text Generation
+Together AI,Qwen/QwQ-32B-Preview,Text Generation
+Together AI,marin-community/marin-8b-instruct,Text Generation
+Groq,moonshotai/Kimi-K2-Instruct,Text Generation
+Groq,meta-llama/Llama-4-Scout-17B-16E-Instruct,Image-Text-to-Text
+Groq,meta-llama/Meta-Llama-3-8B-Instruct,Text Generation
+Groq,Qwen/Qwen3-32B,Text Generation
+Groq,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+Groq,meta-llama/Llama-4-Maverick-17B-128E-Instruct,Image-Text-to-Text
+Groq,deepseek-ai/DeepSeek-R1-Distill-Llama-70B,Text Generation
+Groq,meta-llama/Meta-Llama-3-70B-Instruct,Text Generation
+Groq,google/gemma-2-9b-it,Text Generation
+Groq,meta-llama/Llama-Guard-4-12B,Image-Text-to-Text
+Hyperbolic,Qwen/Qwen3-Coder-480B-A35B-Instruct,Text Generation
+Hyperbolic,Qwen/Qwen3-235B-A22B-Instruct-2507,Text Generation
+Hyperbolic,deepseek-ai/DeepSeek-R1-0528,Text Generation
+Hyperbolic,deepseek-ai/DeepSeek-R1,Text Generation
+Hyperbolic,Qwen/Qwen2.5-VL-7B-Instruct,Image-Text-to-Text
+Hyperbolic,meta-llama/Llama-3.2-3B-Instruct,Text Generation
+Hyperbolic,Qwen/QwQ-32B,Text Generation
+Hyperbolic,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+Hyperbolic,Qwen/Qwen2.5-Coder-32B-Instruct,Text Generation
+Hyperbolic,deepseek-ai/DeepSeek-V3-0324,Text Generation
+Hyperbolic,Qwen/Qwen2.5-72B-Instruct,Text Generation
+Hyperbolic,Qwen/Qwen2.5-VL-72B-Instruct,Image-Text-to-Text
+Hyperbolic,meta-llama/Meta-Llama-3-70B-Instruct,Text Generation
+Hyperbolic,NousResearch/Hermes-3-Llama-3.1-70B,Text Generation
+Hyperbolic,mistralai/Pixtral-12B-2409,Image-Text-to-Text
+Nscale,meta-llama/Llama-3.1-8B-Instruct,Text Generation
+Nscale,stabilityai/stable-diffusion-xl-base-1.0,Text-to-Image
+Nscale,black-forest-labs/FLUX.1-schnell,Text-to-Image
+Nscale,meta-llama/Llama-4-Scout-17B-16E-Instruct,Image-Text-to-Text
+Nscale,Qwen/Qwen3-235B-A22B,Text Generation
+Nscale,Qwen/Qwen3-8B,Text Generation
+Nscale,Qwen/Qwen3-32B,Text Generation
+Nscale,Qwen/QwQ-32B,Text Generation
+Nscale,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+Nscale,Qwen/Qwen2.5-Coder-32B-Instruct,Text Generation
+Nscale,Qwen/Qwen2.5-Coder-7B-Instruct,Text Generation
+Nscale,deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B,Text Generation
+Nscale,deepseek-ai/DeepSeek-R1-Distill-Qwen-32B,Text Generation
+Nscale,deepseek-ai/DeepSeek-R1-Distill-Llama-8B,Text Generation
+Nscale,deepseek-ai/DeepSeek-R1-Distill-Llama-70B,Text Generation
+Nscale,deepseek-ai/DeepSeek-R1-Distill-Qwen-7B,Text Generation
+Nscale,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,Text Generation
+Nscale,mistralai/Mixtral-8x22B-Instruct-v0.1,Text Generation
+Nscale,Qwen/Qwen2.5-Coder-3B-Instruct,Text Generation
+SambaNova,deepseek-ai/DeepSeek-R1-0528,Text Generation
+SambaNova,meta-llama/Llama-3.1-8B-Instruct,Text Generation
+SambaNova,deepseek-ai/DeepSeek-R1,Text Generation
+SambaNova,Qwen/Qwen3-32B,Text Generation
+SambaNova,meta-llama/Llama-3.3-70B-Instruct,Text Generation
+SambaNova,deepseek-ai/DeepSeek-V3-0324,Text Generation
+SambaNova,meta-llama/Llama-4-Maverick-17B-128E-Instruct,Image-Text-to-Text
+SambaNova,deepseek-ai/DeepSeek-R1-Distill-Llama-70B,Text Generation
+SambaNova,intfloat/e5-mistral-7b-instruct,Feature Extraction
+SambaNova,meta-llama/Llama-3.1-405B-Instruct,Text Generation
+SambaNova,tokyotech-llm/Llama-3.3-Swallow-70B-Instruct-v0.4,Text Generation
+fal,peteromallet/Flux-Kontext-InScene,Image-to-Image
+fal,black-forest-labs/FLUX.1-Kontext-dev,Image-to-Image
+fal,black-forest-labs/FLUX.1-dev,Text-to-Image
+fal,ilkerzgi/Overlay-Kontext-Dev-LoRA,Image-to-Image
+fal,hexgrad/Kokoro-82M,Text-to-Speech
+fal,fofr/kontext-make-person-real,Image-to-Image
+fal,openai/whisper-large-v3,Automatic Speech Recognition
+fal,stabilityai/stable-diffusion-3.5-large,Text-to-Image
+fal,black-forest-labs/FLUX.1-schnell,Text-to-Image
+fal,Wan-AI/Wan2.1-T2V-14B,Text-to-Video
+fal,HiDream-ai/HiDream-I1-Full,Text-to-Image
+fal,ResembleAI/chatterbox,Text-to-Speech
+fal,reverentelusarca/flux-kontext-zoom-out-lora,Image-to-Image
+fal,nari-labs/Dia-1.6B,Text-to-Speech
+fal,tencent/HunyuanVideo,Text-to-Video
+fal,ilkerzgi/Glittering-Portrait-Kontext-Dev-Lora,Image-to-Image
+fal,fofr/sdxl-emoji,Text-to-Image
+fal,stabilityai/stable-diffusion-3.5-medium,Text-to-Image
+fal,fal/Realism-Detailer-Kontext-Dev-LoRA,Image-to-Image
+fal,gokaygokay/Fuse-it-Kontext-Dev-LoRA,Image-to-Image
+fal,stabilityai/stable-diffusion-3-medium,Text-to-Image
+fal,ByteDance/Hyper-SD,Text-to-Image
+fal,fofr/flux-kontext-dev-jpeg-compression-fix-lora,Image-to-Image
+fal,fofr/kontext-old-and-damaged-photo,Image-to-Image
+fal,gokaygokay/Light-Fix-Kontext-Dev-LoRA,Image-to-Image
+fal,eggnog/Stereogram_Kontext_LoRa,Image-to-Image
+fal,aleksa-codes/flux-ghibsky-illustration,Text-to-Image
+fal,Wan-AI/Wan2.1-T2V-1.3B,Text-to-Video
+fal,reverentelusarca/kontext-turnaround-sheet-lora-v1,Image-to-Image
+fal,renderartist/technically-color-flux,Text-to-Image
+Cohere,CohereLabs/c4ai-command-r-plus,Text Generation
+Cohere,CohereLabs/aya-expanse-32b,Text Generation
+Cohere,CohereLabs/c4ai-command-r7b-arabic-02-2025,Text Generation
+Cohere,CohereLabs/aya-vision-8b,Image-Text-to-Text
+Cohere,CohereLabs/c4ai-command-r-v01,Text Generation
+Cohere,CohereLabs/c4ai-command-r-08-2024,Text Generation
+Cohere,CohereLabs/c4ai-command-a-03-2025,Text Generation
+Cohere,CohereLabs/aya-expanse-8b,Text Generation
+Cohere,CohereLabs/c4ai-command-r7b-12-2024,Text Generation
+Cohere,CohereLabs/aya-vision-32b,Image-Text-to-Text
+Replicate,peteromallet/Flux-Kontext-InScene,Image-to-Image
+Replicate,black-forest-labs/FLUX.1-Kontext-dev,Image-to-Image
+Replicate,black-forest-labs/FLUX.1-dev,Text-to-Image
+Replicate,ilkerzgi/Overlay-Kontext-Dev-LoRA,Image-to-Image
+Replicate,Lightricks/LTX-Video,Image-to-Video
+Replicate,fofr/kontext-make-person-real,Image-to-Image
+Replicate,stabilityai/stable-diffusion-xl-base-1.0,Text-to-Image
+Replicate,stabilityai/stable-diffusion-3.5-large,Text-to-Image
+Replicate,black-forest-labs/FLUX.1-schnell,Text-to-Image
+Replicate,Wan-AI/Wan2.1-T2V-14B,Text-to-Video
+Replicate,reverentelusarca/flux-kontext-zoom-out-lora,Image-to-Image
+Replicate,ilkerzgi/Glittering-Portrait-Kontext-Dev-Lora,Image-to-Image
+Replicate,fal/Realism-Detailer-Kontext-Dev-LoRA,Image-to-Image
+Replicate,gokaygokay/Fuse-it-Kontext-Dev-LoRA,Image-to-Image
+Replicate,ByteDance/Hyper-SD,Text-to-Image
+Replicate,fofr/flux-kontext-dev-jpeg-compression-fix-lora,Image-to-Image
+Replicate,fofr/kontext-old-and-damaged-photo,Image-to-Image
+Replicate,gokaygokay/Light-Fix-Kontext-Dev-LoRA,Image-to-Image
+Replicate,eggnog/Stereogram_Kontext_LoRa,Image-to-Image
+Replicate,aleksa-codes/flux-ghibsky-illustration,Text-to-Image
+Replicate,Wan-AI/Wan2.1-T2V-1.3B,Text-to-Video
+Replicate,reverentelusarca/kontext-turnaround-sheet-lora-v1,Image-to-Image
+Replicate,Shakker-Labs/FLUX.1-Kontext-dev-LoRA-Sketch-Style,Text-to-Image
+Replicate,renderartist/technically-color-flux,Text-to-Image
+Replicate,ByteDance/SDXL-Lightning,Text-to-Image
+Replicate,ostris/kontext_big_head_lora,Image-to-Image
+Replicate,fal/Youtube-Thumbnails-Kontext-Dev-LoRA,Image-to-Image
+Replicate,Shakker-Labs/FLUX.1-Kontext-dev-LoRA-Felt-Style,Text-to-Image
+Replicate,Shakker-Labs/FLUX.1-Kontext-dev-LoRA-Flat-Cartoon-Style,Text-to-Image
+Replicate,Shakker-Labs/FLUX.1-Kontext-dev-LoRA-Pixel-Style,Text-to-Image
+HF Inference API,HuggingFaceTB/SmolLM3-3B,Text Generation
+HF Inference API,black-forest-labs/FLUX.1-dev,Text-to-Image
+HF Inference API,openai/whisper-large-v3,Automatic Speech Recognition
+HF Inference API,stabilityai/stable-diffusion-xl-base-1.0,Text-to-Image
+HF Inference API,sentence-transformers/all-MiniLM-L6-v2,Sentence Similarity
+HF Inference API,stabilityai/stable-diffusion-3.5-large,Text-to-Image
+HF Inference API,black-forest-labs/FLUX.1-schnell,Text-to-Image
+HF Inference API,BAAI/bge-m3,Sentence Similarity
+HF Inference API,openai/whisper-large-v3-turbo,Automatic Speech Recognition
+HF Inference API,facebook/bart-large-cnn,Summarization
+HF Inference API,Falconsai/nsfw_image_detection,Image Classification
+HF Inference API,sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2,Sentence Similarity
+HF Inference API,distilbert/distilbert-base-uncased-finetuned-sst-2-english,Text Classification
+HF Inference API,ProsusAI/finbert,Text Classification
+HF Inference API,facebook/bart-large-mnli,Zero-Shot Classification
+HF Inference API,shibing624/text2vec-base-chinese,Sentence Similarity
+HF Inference API,meta-llama/Llama-3.2-11B-Vision-Instruct,Image-Text-to-Text
+HF Inference API,distilbert/distilbert-base-uncased,Fill-Mask
+HF Inference API,FacebookAI/xlm-roberta-base,Fill-Mask
+HF Inference API,unitary/toxic-bert,Text Classification
+HF Inference API,jonathandinu/face-parsing,Image Segmentation
+HF Inference API,SamLowe/roberta-base-go_emotions,Text Classification
+HF Inference API,BAAI/bge-large-zh-v1.5,Feature Extraction
+HF Inference API,Falconsai/text_summarization,Summarization
+HF Inference API,tabularisai/multilingual-sentiment-analysis,Text Classification
+HF Inference API,nlpai-lab/KURE-v1,Feature Extraction
+HF Inference API,google-bert/bert-base-uncased,Fill-Mask
+HF Inference API,FacebookAI/roberta-base,Fill-Mask
+HF Inference API,facebook/detr-resnet-50,Object Detection
+HF Inference API,sentence-transformers/all-mpnet-base-v2,Sentence Similarity
