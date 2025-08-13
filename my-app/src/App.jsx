@@ -70,7 +70,7 @@ function App() {
 
       const data = await response.json();
       if (response.ok) {
-        console.log("Recieved Model Information correctly haah", data.models);
+        console.log("Recieved Model Information correctly", data.models);
         setModelData(data.models);
       } else {
         console.log("Some error occured", data.message);
@@ -103,6 +103,7 @@ function App() {
   }, [ModelisOpen]);
 
   const sendPromptToServer = async (prompt, provider, model, feature) => {
+    console.log("first log", prompt, provider, model, feature);
     try {
       const response = await fetch("http://localhost:3000/api/users", {
         method: "POST",
@@ -221,12 +222,20 @@ function App() {
                   <div className="self-end prompt max-w-3/4 bg-[#303030] rounded-xl h-max p-3">
                     <p className="text-white">{pair["prompt"]}</p>
                   </div>
-
-                  <div className="mb-4 response rounded-xl h-max p-3 md:max-w-1/2">
-                    <p className="text-white leading-7.5">
-                      {renderFormattedText(pair["response"])}
-                    </p>
-                  </div>
+                  {feature === "Text Generation" ? (
+                    <div className="mb-4 response rounded-xl h-max p-3 md:max-w-1/2">
+                      <p className="text-white leading-7.5">
+                        {renderFormattedText(pair["response"])}
+                      </p>
+                    </div>
+                  ) : feature === "Text-to-Image" ? (
+                    <div className="mb-4 response w-auto p-3 md:max-w-1/2">
+                      <img
+                        src={pair["response"]}
+                        className="image-container rounded-lg h-[45vh]"
+                      ></img>
+                    </div>
+                  ) : null}
                 </div>
               ))}
               <div ref={bottomRef} className="dummy-ref"></div>
@@ -259,6 +268,7 @@ function App() {
                         setprovider={setprovider}
                         setmodel={setmodel}
                         setfeature={setfeature}
+                        setModelData={setModelData}
                       />
                     </div>
                   </div>

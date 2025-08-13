@@ -26,6 +26,7 @@ const sendResponse = async (req, res) => {
   }
 
   try {
+    console.log("Middle man", prompt, provider, model, feature);
     const aiResponse = await SendPrompt(prompt, provider, model, feature);
 
     res.status(201).json({ data: aiResponse });

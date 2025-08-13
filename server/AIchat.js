@@ -32,9 +32,14 @@ const SendPrompt = async (prompt, provider, model, feature) => {
           inputs: prompt,
           parameters: { num_inference_steps: 5 },
         });
+        console.log("Image type", image.type);
+        const buffer = Buffer.from(await image.arrayBuffer());
+        console.log("buffer", buffer);
+        const base64Image = buffer.toString("base64");
+        console.log("base64Image", base64Image);
+        const mimeType = "image/jpeg"; // adjust if needed
+        const imageUrl = `data:${mimeType};base64,${base64Image}`;
 
-        const imageUrl = URL.createObjectURL(image);
-        console.log("Image URL:", imageUrl);
         return imageUrl;
 
       case "Text-to-Video":
