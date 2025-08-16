@@ -1,3 +1,4 @@
+const axios = require("axios");
 const {
   getModels,
   getProviders,
@@ -19,17 +20,18 @@ const getUsers = (req, res) => {
 };
 
 const sendResponse = async (req, res) => {
-  const { prompt, provider, model, feature } = req.body;
+  const { prompt } = req.body;
   console.log(req.body);
   if (!prompt) {
     return res.status(400).json({ message: "Prompt is missing or empty" });
   }
 
   try {
-    console.log("Middle man", prompt, provider, model, feature);
-    const aiResponse = await SendPrompt(prompt, provider, model, feature);
+    const response = await axios.post("http://localhost:8000/invoke-graph", {
+      question: prompt,
+    });
 
-    res.status(201).json({ data: aiResponse });
+    res.status(201).json({ data: response.data });
   } catch (error) {
     res
       .status(500)

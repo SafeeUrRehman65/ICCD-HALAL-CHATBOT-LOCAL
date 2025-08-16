@@ -7,6 +7,7 @@ import { useRef } from "react";
 import "./App.css";
 import VoiceBox from "./components/Voice-Icon";
 import FilterChip from "./components/FilterChip";
+import { formatProductResponse } from "./Utilities/utilities";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,6 +23,7 @@ function App() {
   const [scrollTrigger, setScrollTrigger] = useState(false);
   const [ModelData, setModelData] = useState();
   const [ModelisOpen, setModelisOpen] = useState(false);
+  const [toggler, setToggler] = useState(false);
 
   const addPrompt = (prompt) => {
     if (!prompt.trim()) return;
@@ -102,8 +104,8 @@ function App() {
     };
   }, [ModelisOpen]);
 
-  const sendPromptToServer = async (prompt, provider, model, feature) => {
-    console.log("first log", prompt, provider, model, feature);
+  const sendPromptToServer = async (prompt) => {
+    console.log("first log", prompt);
     try {
       const response = await fetch("http://localhost:3000/api/users", {
         method: "POST",
@@ -112,17 +114,18 @@ function App() {
         },
         body: JSON.stringify({
           prompt,
-          provider,
-          model,
-          feature,
         }),
       });
 
       const data = await response.json();
+      console.log("AI Response", data);
       if (response.ok) {
-        console.log("Received response correctly", data.data);
+        console.log("Received response correctly", data.data.messages);
         let currentText = "";
-        const complete_response = data.data;
+        let complete_response;
+        const lastMessageIndice = data.data.messages.length - 1;
+        complete_response = data.data.messages[lastMessageIndice].content;
+
         const words = complete_response.trim().split(/\s+/);
         addResponse(""); // Initialize once
 
@@ -139,6 +142,7 @@ function App() {
             }
           }
         }
+
         window.scrollTo(0, document.body.scrollHeight);
       } else {
         console.log("Some error occured", data.message);
@@ -155,7 +159,7 @@ function App() {
         const prompt = PromptRef.current.value;
 
         addPrompt(prompt);
-        sendPromptToServer(prompt, provider, model, feature);
+        sendPromptToServer(prompt);
         PromptRef.current.value = "";
       }
 
@@ -209,7 +213,7 @@ function App() {
                 <div className="w-5 h-5 font-semibold bg-edit bg-cover "></div>
               </div>
               <div className="flex items-center text-lg text-white hover:bg-neutral-700 hover:bg-opacity-20 px-2 py-1 rounded-lg cursor-pointer">
-                <p>MatzGPT</p>
+                <p>ICCD Halal GPT</p>
                 <span className="mt-[1px] w-6 h-6 bg-cover bg-down-arrow"></span>
               </div>
               <div className="Log-in w-14 h-8 flex justify-center items-center bg-white hover:bg-gray-100 rounded-full cursor-pointer">
@@ -222,7 +226,20 @@ function App() {
                   <div className="self-end prompt max-w-3/4 bg-[#303030] rounded-xl h-max p-3">
                     <p className="text-white">{pair["prompt"]}</p>
                   </div>
-                  {feature === "Text Generation" ? (
+                  {!pair["response"] ? (
+                    <div className="my-8 flex justify-start">
+                      <div className="scaler self-center h-4 w-4 bg-white rounded-full opacity-75"></div>
+
+                      {/* <div className="flex flex-col">
+                        <p className="mx-2 text-lg shimmer-effect">
+                          Constructing query
+                        </p>
+                        <p className="mx-2 text-sm shimmer-effect-lite">
+                          Executing Query
+                        </p>
+                      </div> */}
+                    </div>
+                  ) : feature === "Text Generation" ? (
                     <div className="mb-4 response rounded-xl h-max p-3 md:max-w-1/2">
                       <p className="text-white leading-7.5">
                         {renderFormattedText(pair["response"])}

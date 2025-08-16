@@ -1,0 +1,151 @@
+
+
+# # Create a fastapi app
+# app = FastAPI()
+
+# load_dotenv()
+# db=SQLDatabase.from_uri("postgresql://postgres:safee@localhost:5432/postgres")
+
+# # define state for agentic workflows
+# class State(TypedDict):
+#     question: str
+#     query: str
+#     result: str
+#     answer: str
+    
+    
+# qa_llm = ChatTogether(
+#     model="moonshotai/Kimi-K2-Instruct",
+#     temperature=0,
+#     api_key=os.getenv("TOGETHER_AI_API_KEY"),
+#     max_tokens=None
+# )
+
+# top_k= 5
+# system_message = f"""
+# # Role Definition
+# You are HALALBOT, a specialized AI assistant with two core capabilities:
+# 1. Answering questions about Halal Food Thailand database
+# 2. Handling general inquiries about halal certification and basic conversation
+
+# # Database Expertise
+# You interact with a PostgreSQL database containing the "Halal Food Thailand" table with these columns:
+# - id (SERIAL PRIMARY KEY)
+# - name, product_name, halal_code, fda_number, barcode
+# - expiry_date, company_name, company_address, company_email
+# - cordinator_name, cordinator_contact, long_product_detail
+# - image_link, category
+
+# # General Knowledge Context
+# {halal_db_prompt}
+
+# # Response Rules
+# ## For Database Queries:
+# 1. Always query ONLY the "Halal Food Thailand" table unless asked otherwise
+# 2. Never use INSERT/UPDATE/DELETE/DROP statements
+# 3. Limit queries to 5 results unless specified otherwise
+# 4. Double-check queries for syntax errors before executing
+# 5. Return answers in clear, formatted markdown
+
+# ## For General Questions:
+# 1. Greet users politely: "Hello! I'm HALALBOT, your halal food information assistant."
+# 2. When asked to introduce yourself:
+#    "I'm HALALBOT, specialized in providing information about certified halal food products in Thailand. I can answer questions about specific products or explain halal certification processes."
+# 3. For "What is Halal certification?":
+#    "Halal certification ensures products meet Islamic dietary laws. In Thailand, it involves rigorous inspection of ingredients, production processes, and supply chains by certified halal organizations."
+
+# ## Universal Rules:
+# 1. Maintain professional, friendly tone
+# 2. If unsure, ask clarifying questions
+# 3. For off-topic queries: "I specialize in halal food information. How can I assist you with halal-certified products in Thailand?"
+# 4. Always acknowledge requests before executing queries: "I'll search the database for that information..."
+# """
+
+# user_prompt = "Question: {input}"
+# query_prompt_template = ChatPromptTemplate([("system",system_message),("user", user_prompt)])    
+    
+# # for returning structured output define classes
+# # class QueryOutput(TypedDict):
+# #     """Generated SQL query."""
+# #     query:Annotated[str,...,"Syntactically valid SQL query."]
+    
+    
+# class QueryOutput(BaseModel):
+#     """Generated SQL query."""
+    
+#     query: str = Field(description = "Syntactically valid SQL query.")
+
+# # define function to generate SQL query
+# def write_query(state:State):
+#     """Generate SQL query to fetch information."""
+#     prompt = query_prompt_template.invoke(
+#         {
+#             "dialect":db.dialect,
+#             "top_k":10,
+#             "table_info":db.get_table_info(),
+#             "input":state["question"],
+#         }
+#     )
+    
+#     structured_llm = qa_llm.with_structured_output(QueryOutput)
+#     result = structured_llm.invoke(prompt)
+#     return {"query": result.query}
+
+
+# def execute_query(state:State):
+#     """Execute SQL Query."""
+#     execute_query_tool  = QuerySQLDatabaseTool(db=db)
+#     return {"result": execute_query_tool.invoke(state["query"])}
+
+
+# def generate_answer(state:State):
+#     """Answer questions using retrieved information as context."""
+#     prompt= (
+#         "Given the following user question, corresponding SQL query, "
+#         "and SQL result, answer the user question.\n\n"
+#         f"Question:{state['question']} \n"
+#         f"Query:{state['query']} \n"
+#         f"Answer:{state['result']} \n"
+#     )
+#     response = qa_llm.invoke(prompt)
+#     return {"answer": response.content}
+
+
+
+# toolkit = SQLDatabaseToolkit(db=db, llm=qa_llm)
+# tools = toolkit.get_tools()
+
+# graph_builder = StateGraph(State).add_sequence(
+    
+#     [write_query, execute_query, generate_answer]
+# )
+
+# graph_builder.add_edge(START, "write_query")
+# graph = graph_builder.compile()
+
+# class QuestionRequest(BaseModel):
+#     question: str
+     
+# # @app.post("/invoke-graph")
+# # def invoke_graph(question: QuestionRequest):
+# #     try:
+# #         response = graph.invoke({"question": question.question})
+# #         return {"answer" :response['answer']}
+# #     except Exception as e:
+# #         print(f"The error{e}")
+# #         raise HTTPException(status_code=500, detail=str(e))
+    
+
+# agent_executor = create_react_agent(qa_llm, tools, prompt = system_message)
+
+
+# @app.post("/invoke-graph")
+# def invoke_agent(question: QuestionRequest):
+#     all_messages = []
+#     for step in agent_executor.stream(
+#         {"messages": [{"role": "user", "content": question}]},
+#         stream_mode="values",
+#     ):
+#         all_messages.append(step["messages"][-1])
+#     if all_messages:
+#         return all_messages[-1]
