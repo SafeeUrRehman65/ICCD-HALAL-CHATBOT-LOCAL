@@ -1,4 +1,5 @@
 import os
+import getpass
 import traceback
 from langchain_community.utilities import SQLDatabase
 from typing_extensions import TypedDict,Annotated
@@ -19,66 +20,85 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langgraph.checkpoint.memory import MemorySaver
 from langchain import hub
-
+from langchain_cohere import ChatCohere, create_cohere_react_agent
+from langchain_cohere.llms import Cohere
+from langchain_cerebras import ChatCerebras
+from langchain_tavily import TavilySearch
+from langchain.agents import AgentExecutor
+from langchain_core.tools import tool
+from langchain_fireworks import ChatFireworks
+from sqlalchemy import create_engine
 
 # Initialize store for preserving chat history
 store = {}
 # Initialize components (same as yours)
 app = FastAPI()
 load_dotenv()
-db = SQLDatabase.from_uri("postgresql://postgres:safee@localhost:5432/postgres")
 
-# LLM Setup (same as yours)
-qa_llm = ChatTogether(
-    model="meta-llama/Llama-3-70b-chat-hf",
+# db = SQLDatabase.from_uri("postgresql://postgres:safee@localhost:5432/postgres")
+
+
+engine = create_engine("postgresql://postgres:safee@localhost:5432/postgres")
+
+db = SQLDatabase(engine)
+table_info = db.get_table_info()
+
+# if not os.environ.get("TAVILY_API_KEY"):
+#     os.environ["TAVILY_API_KEY"] = getpass.getpass("Tavily API key:\n")
+
+
+if "FIREWORKS_API_KEY" not in os.environ:
+    os.environ["FIREWORKS_API_KEY"] = getpass.getpass("Enter your Fireworks API key: ")
+
+
+qa_llm = ChatFireworks(
+    model="accounts/fireworks/models/kimi-k2-instruct",
     temperature=0,
-    api_key=os.getenv("TOGETHER_AI_API_KEY"),
-    max_tokens=None
 )
-
-# meta-llama/Llama-3.3-70B-Instruct-Turbo-Free
-
-# Qwen/Qwen3-235B-A22B-Thinking-2507
-table_info=db.get_table_info(),
 top_k=2
 
 # Improved System Message
-system_message = f"""
-<<ROLE>>
-You Halal Bot, a specialized AI assistant for Halal Food Thailand database.
+system_message = """
+You are an agent designed to interact with a SQL database.
+Given an input question, create a syntactically correct {dialect} query to run,
+then look at the results of the query and return the answer. 
+Unless the user
+specifies a specific number of examples they wish to obtain, ALWAYS LIMIT YOUR QUERY TO ATMOST {top_k} results.
+For greetings follow : {halal_db_greeting_prompt}
+Here is the table_info : {table_info}
 
-<<CAPABILITIES>>
-1. Answer database queries about halal products
-2. Explain halal certification
-3. Handle general conversation and provide general purpose information and 
+You can order the results by a relevant column to return the most interesting
+examples in the database. Never query for all the columns from a specific table,
+only ask for the relevant columns given the question.
 
-<<DATABASE SCHEMA>>
-{table_info}
+You MUST double check your query before executing it. If you get an error while
+executing a query, rewrite the query and try again.
 
-<<RULES>>
-- For greetings follow this : {halal_db_greeting_prompt}
-- For halal questions: Provide accurate information
-- For database queries: Always verify SQL syntax
-- Always answer query specific questions by querying database, DO NOT hallucinate
-- Never modify data (INSERT/UPDATE/DELETE)
-- Limit to {top_k} results unless specified
-- Always use optimized and fast queries, use indexing if required to get faster responses.
-"""
+DO NOT make any DML statements (INSERT, UPDATE, DELETE, DROP etc.) to the
+database.
+
+To start you should ALWAYS look at the tables in the database to see what you
+can query. Do NOT skip this step.
+
+If user asks irrelevant question, ALWAYS POLITELY DIRECT HIM TOWARDS YOUR PURPOSE WHICH IS TO QUERY PROVIDED DATABASE AND RETURN ANSWERS. 
+
+Then you should query the schema of the most relevant tables.
+""".format(
+    dialect = db.dialect,
+    top_k = 2,
+    halal_db_greeting_prompt = halal_db_greeting_prompt,
+    table_info = table_info
+    )
 
 
-# # construct a prompt template
-# prompt = hub.pull("hwchase17/openai-functions-agent")
-# print(prompt.messages)
-# Create the agent
-
-# agent_prompt = ChatPromptTemplate.from_messages([
-#     ("system", system_message),  # Your custom system message
-#     MessagesPlaceholder("messages"),  # For conversation history
+# prompt = ChatPromptTemplate.from_messages([("system", system_message),("user","{input}"), MessagesPlaceholder("agent_scratchpad")
 # ])
+
+
+# prompt = ChatPromptTemplate.from_template("{input}")
+
 toolkit = SQLDatabaseToolkit(db=db, llm=qa_llm)
 tools = toolkit.get_tools()
-
-
 
 
 # Initialize memory
@@ -91,26 +111,27 @@ class QuestionRequest(BaseModel):
 agent_executor = create_react_agent(
     qa_llm,
     tools,
-    prompt= system_message,
-    checkpointer= memory
+    prompt = system_message,
  )
 
+ 
+# agent_executor = AgentExecutor(agent = agent, tools = tools, verbose = True)
 config = {"configurable": {"thread_id": "xyz123"}}
-
-# @app.post("/invoke-graph")
-# def invoke_agent(question: QuestionRequest):
-#     all_messages = []
-#     for step in agent_executor.stream(
-#         {"messages": [{"role": "user", "content": question.question}]},
-#         stream_mode="values",
-#     ):
-#         all_messages.append(step["messages"][-1])
-#     if all_messages:
-#         return all_messages[-1]
 
 
 @app.post("/invoke-graph")
 def invoke_agent(question: QuestionRequest):
     input_message = {"role": "user", "content": question.question}
-    response = agent_executor.invoke({"messages":[input_message]}, config)
-    return response 
+
+    response = agent_executor.invoke({"messages":[input_message]})
+
+    return response
+    # response = agent_executor.invoke({"input": question.question})
+
+    # for step in agent_executor.stream(
+    #     {"messages": [{"role": "user", "content": question}]},
+        
+    #     ):
+
+    #     print(step)
+        

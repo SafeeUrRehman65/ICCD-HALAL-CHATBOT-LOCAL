@@ -1,5 +1,3 @@
-
-
 # # Create a fastapi app
 # app = FastAPI()
 
@@ -149,3 +147,15 @@
 #         all_messages.append(step["messages"][-1])
 #     if all_messages:
 #         return all_messages[-1]
+
+
+
+
+# <<DATABASE SCHEMA>>
+# {table_info}
+
+- For database queries: Always verify SQL syntax
+- Always answer query specific questions by querying database, DO NOT hallucinate
+- Never modify data (INSERT/UPDATE/DELETE)
+- Limit to {top_k} results unless specified
+- Always use optimized and fast queries, use indexing if required to get faster responses.

@@ -23,7 +23,7 @@ function App() {
   const [scrollTrigger, setScrollTrigger] = useState(false);
   const [ModelData, setModelData] = useState();
   const [ModelisOpen, setModelisOpen] = useState(false);
-  const [toggler, setToggler] = useState(false);
+  const [toggler, setToggler] = useState(true);
 
   const addPrompt = (prompt) => {
     if (!prompt.trim()) return;
@@ -47,47 +47,63 @@ function App() {
     });
   };
 
-  const renderFormattedText = (text) => {
-    // Split text into parts, preserving the bold markers
-    const parts = text.split(/(\*\*.*?\*\*)/g);
 
-    return parts.map((part, index) => {
-      if (part.startsWith("**") && part.endsWith("**")) {
-        // This is a bold section
-        const boldText = part.slice(2, -2); // Remove the ** markers
-        return <strong key={index}>{boldText}</strong>;
+  const formatResponseText = (text) => {
+    // First split by lines to handle line breaks
+    const lines = text.split('\n');
+
+    return lines.map((line, lineIndex) => {
+      if (!line.trim()) {
+        // Empty line - add paragraph spacing
+        return <div key={lineIndex} style={{ height: '1em' }}></div>;
       }
-      return <span key={index}>{part}</span>;
+
+      // Then process bold formatting within each line
+      const parts = line.split(/(\*\*.*?\*\*)/g);
+
+      const formattedLine = parts.map((part, partIndex) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          const boldText = part.slice(2, -2);
+          return <strong key={partIndex} style={{ }}>{boldText}</strong>;
+        }
+        return <span key={partIndex}>{part}</span>;
+      });
+
+      return (
+        <div key={lineIndex} style={{ marginBottom: '0.5em' }}>
+          {formattedLine}
+        </div>
+      );
     });
   };
 
-  const FetchMdodelInfo = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/models", {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
+  // const FetchMdodelInfo = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:3000/api/models", {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-type": "application/json",
+  //       },
+  //     });
 
-      const data = await response.json();
-      if (response.ok) {
-        console.log("Recieved Model Information correctly", data.models);
-        setModelData(data.models);
-      } else {
-        console.log("Some error occured", data.message);
-      }
-    } catch (error) {
-      console.log(
-        "Network Error: Failed while sending request to server",
-        error
-      );
-    }
-  };
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       console.log("Recieved Model Information correctly", data.models);
+  //       setModelData(data.models);
+  //     } else {
+  //       console.log("Some error occured", data.message);
+  //     }
+  //   } catch (error) {
+  //     console.log(
+  //       "Network Error: Failed while sending request to server",
+  //       error
+  //     );
+  //   }
+  // };
 
-  useEffect(() => {
-    FetchMdodelInfo();
-  }, []);
+  // useEffect(() => {
+  //   FetchMdodelInfo();
+  // }, []);
 
   useEffect(() => {
     function handleclickOutside(event) {
@@ -125,25 +141,26 @@ function App() {
         let complete_response;
         const lastMessageIndice = data.data.messages.length - 1;
         complete_response = data.data.messages[lastMessageIndice].content;
+        addResponse(complete_response)
+        // const words = complete_response.trim().split(/\s+/);
+        // addResponse(""); // Initialize once
 
-        const words = complete_response.trim().split(/\s+/);
-        addResponse(""); // Initialize once
+        // if (words.length > 0) {
+        //   for (let i = 0; i < words.length; i++) {
+        //     const word = words[i];
+        //     currentText += word + " ";
 
-        if (words.length > 0) {
-          for (let i = 0; i < words.length; i++) {
-            const word = words[i];
-            currentText += word + " ";
+        //     // Update every 4 words or on the last word
+        //     if (i % 4 === 0 || i === words.length - 1) {
+        //       addResponse(currentText);
 
-            // Update every 4 words or on the last word
-            if (i % 4 === 0 || i === words.length - 1) {
-              addResponse(currentText);
-
-              await new Promise((resolve) => setTimeout(resolve, 5));
-            }
-          }
-        }
+        //       await new Promise((resolve) => setTimeout(resolve, 5));
+        //     }
+        //   }
+        // }
 
         window.scrollTo(0, document.body.scrollHeight);
+        setToggler(true)
       } else {
         console.log("Some error occured", data.message);
       }
@@ -159,6 +176,10 @@ function App() {
         const prompt = PromptRef.current.value;
 
         addPrompt(prompt);
+        setTimeout(() => {
+          setToggler(false)
+        }, 5000);
+
         sendPromptToServer(prompt);
         PromptRef.current.value = "";
       }
@@ -228,22 +249,27 @@ function App() {
                   </div>
                   {!pair["response"] ? (
                     <div className="my-8 flex justify-start">
-                      <div className="scaler self-center h-4 w-4 bg-white rounded-full opacity-75"></div>
 
-                      {/* <div className="flex flex-col">
-                        <p className="mx-2 text-lg shimmer-effect">
-                          Constructing query
-                        </p>
-                        <p className="mx-2 text-sm shimmer-effect-lite">
-                          Executing Query
-                        </p>
-                      </div> */}
+                      {toggler ? (
+
+                        <div className="scaler self-center h-4 w-4 bg-white rounded-full opacity-75"></div>
+
+                      ) : (
+                        <div className="flex flex-col">
+                          <p className="mx-2 text-lg shimmer-effect">
+                            Constructing query
+                          </p>
+                          <p className="mx-2 text-sm shimmer-effect-lite">
+                            Executing Query
+                          </p>
+                        </div>
+                      )}
                     </div>
                   ) : feature === "Text Generation" ? (
                     <div className="mb-4 response rounded-xl h-max p-3 md:max-w-1/2">
-                      <p className="text-white leading-7.5">
-                        {renderFormattedText(pair["response"])}
-                      </p>
+                      <div className="text-white leading-7.5">
+                        {formatResponseText(pair["response"])}
+                      </div>
                     </div>
                   ) : feature === "Text-to-Image" ? (
                     <div className="mb-4 response w-auto p-3 md:max-w-1/2">

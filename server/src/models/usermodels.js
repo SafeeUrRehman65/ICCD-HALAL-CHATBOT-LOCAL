@@ -14,9 +14,9 @@ const HuggingFaceModels = sequelize.define(
   }
 );
 
-(async () => {
-  await sequelize.sync({ alter: true });
-  // Code here
-})();
+// (async () => {
+//   await sequelize.sync({ alter: true });
+//   // Code here
+// })();
 
 module.exports = { HuggingFaceModels };
