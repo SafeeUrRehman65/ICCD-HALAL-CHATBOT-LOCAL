@@ -47,30 +47,33 @@ function App() {
     });
   };
 
-
   const formatResponseText = (text) => {
     // First split by lines to handle line breaks
-    const lines = text.split('\n');
+    const lines = text.split("\n");
 
     return lines.map((line, lineIndex) => {
       if (!line.trim()) {
         // Empty line - add paragraph spacing
-        return <div key={lineIndex} style={{ height: '1em' }}></div>;
+        return <div key={lineIndex} style={{ height: "1em" }}></div>;
       }
 
       // Then process bold formatting within each line
       const parts = line.split(/(\*\*.*?\*\*)/g);
 
       const formattedLine = parts.map((part, partIndex) => {
-        if (part.startsWith('**') && part.endsWith('**')) {
+        if (part.startsWith("**") && part.endsWith("**")) {
           const boldText = part.slice(2, -2);
-          return <strong key={partIndex} style={{ }}>{boldText}</strong>;
+          return (
+            <strong key={partIndex} style={{}}>
+              {boldText}
+            </strong>
+          );
         }
         return <span key={partIndex}>{part}</span>;
       });
 
       return (
-        <div key={lineIndex} style={{ marginBottom: '0.5em' }}>
+        <div key={lineIndex} style={{ marginBottom: "0.5em" }}>
           {formattedLine}
         </div>
       );
@@ -141,7 +144,7 @@ function App() {
         let complete_response;
         const lastMessageIndice = data.data.messages.length - 1;
         complete_response = data.data.messages[lastMessageIndice].content;
-        addResponse(complete_response)
+        addResponse(complete_response);
         // const words = complete_response.trim().split(/\s+/);
         // addResponse(""); // Initialize once
 
@@ -160,7 +163,7 @@ function App() {
         // }
 
         window.scrollTo(0, document.body.scrollHeight);
-        setToggler(true)
+        setToggler(true);
       } else {
         console.log("Some error occured", data.message);
       }
@@ -177,7 +180,7 @@ function App() {
 
         addPrompt(prompt);
         setTimeout(() => {
-          setToggler(false)
+          setToggler(false);
         }, 5000);
 
         sendPromptToServer(prompt);
@@ -249,18 +252,15 @@ function App() {
                   </div>
                   {!pair["response"] ? (
                     <div className="my-8 flex justify-start">
-
                       {toggler ? (
-
                         <div className="scaler self-center h-4 w-4 bg-white rounded-full opacity-75"></div>
-
                       ) : (
                         <div className="flex flex-col">
                           <p className="mx-2 text-lg shimmer-effect">
-                            Constructing query
+                            Searching the internet
                           </p>
                           <p className="mx-2 text-sm shimmer-effect-lite">
-                            Executing Query
+                            Processing details
                           </p>
                         </div>
                       )}
@@ -283,8 +283,9 @@ function App() {
               ))}
               <div ref={bottomRef} className="dummy-ref"></div>
             </div>
+
             <div className="input-box w-full flex justify-center">
-              <div className="w-[95%] h-[14vh] bg-[#303030] rounded-3xl">
+              <div className="w-[95%] h-[14vh] backdrop-blur-md bg-[#303030] rounded-3xl">
                 <input
                   ref={PromptRef}
                   className="text-md text-white placeholder-[#b1b1b1] w-full h-[7vh] px-4 focus:outline-none"
