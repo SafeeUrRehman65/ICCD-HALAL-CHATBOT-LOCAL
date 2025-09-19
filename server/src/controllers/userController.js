@@ -27,9 +27,12 @@ const sendResponse = async (req, res) => {
   }
 
   try {
-    const response = await axios.post("http://localhost:8000/invoke-graph", {
-      question: prompt,
-    });
+    const response = await axios.post(
+      `${process.env.FAST_API_URL}/invoke-graph`,
+      {
+        question: prompt,
+      }
+    );
 
     res.status(201).json({ data: response.data });
   } catch (error) {
