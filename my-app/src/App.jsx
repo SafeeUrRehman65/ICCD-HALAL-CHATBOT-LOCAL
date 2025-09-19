@@ -16,6 +16,7 @@ function App() {
   const [model, setmodel] = useState("meta-llama/Llama-3.3-70B-Instruct");
   const [feature, setfeature] = useState("Text Generation");
   const PromptRef = useRef();
+  const [promptText, setPromptText] = useState("");
   const VoiceBoxRef = useRef();
   const dropdownRef = useRef();
   const EnterPromptRef = useRef();
@@ -126,7 +127,7 @@ function App() {
   const sendPromptToServer = async (prompt) => {
     console.log("first log", prompt);
     try {
-      const response = await fetch("http://localhost:3000/api/users", {
+      const response = await fetch(process.env.FETCH_AI_RESPONSE_API, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -174,9 +175,11 @@ function App() {
 
   // Logic to handle Enter key press after entering prompt
   const handleEnterPress = (e) => {
-    if (PromptRef.current.value != "") {
-      if (e.key == "Enter" || e.type === "click") {
-        const prompt = PromptRef.current.value;
+    if ((e.key == "Enter" || e.type === "click") && !e.shiftKey) {
+      if (promptText.trim() != "") {
+        e.preventDefault();
+        // const prompt = PromptRef.current.value;
+        const prompt = promptText.trim();
 
         addPrompt(prompt);
         setTimeout(() => {
@@ -184,7 +187,7 @@ function App() {
         }, 5000);
 
         sendPromptToServer(prompt);
-        PromptRef.current.value = "";
+        setPromptText("");
       }
 
       if (VoiceBoxRef.current) VoiceBoxRef.current.classList.remove("hidden");
@@ -195,8 +198,8 @@ function App() {
 
   useEffect(() => {
     const handleInputPrompt = () => {
-      if (PromptRef.current) {
-        if (PromptRef.current.value != "") {
+      if (promptText.current) {
+        if (promptText.current.value != "") {
           if (VoiceBoxRef.current) VoiceBoxRef.current.classList.add("hidden");
           if (EnterPromptRef.current)
             EnterPromptRef.current.classList.remove("hidden");
@@ -209,7 +212,8 @@ function App() {
       }
     };
 
-    const inputEl = PromptRef.current;
+    // const inputEl = PromptRef.current;
+    const inputEl = promptText;
     if (inputEl) {
       inputEl.addEventListener("input", handleInputPrompt);
       inputEl.addEventListener("keydown", handleInputPrompt); // 🔄 NEW LINE
@@ -283,15 +287,16 @@ function App() {
               ))}
               <div ref={bottomRef} className="dummy-ref"></div>
             </div>
-
             <div className="input-box w-full flex justify-center">
-              <div className="w-[95%] h-[14vh] backdrop-blur-md bg-[#303030] rounded-3xl">
-                <input
-                  ref={PromptRef}
-                  className="text-md text-white placeholder-[#b1b1b1] w-full h-[7vh] px-4 focus:outline-none"
+              <div className="w-[95%] h-[14vh] shadow-md backdrop-blur-md bg-[#303030] rounded-3xl wrap-text border border-[#e8e8e8]/10">
+                <textarea
+                  // ref={PromptRef}
+                  value={promptText}
+                  className="text-md text-white placeholder-[#b1b1b1] w-full h-[7vh] px-4 focus:outline-none whitespace-pre-wrap break-words resize-none overflow-hidden flex placeholder pt-3"
                   type="text"
                   autoFocus
                   placeholder="Ask anything"
+                  onChange={(e) => setPromptText(e.target.value)}
                   onKeyDown={handleEnterPress}
                 />
                 <div className="flex px-3">
@@ -339,7 +344,7 @@ function App() {
               </div>
             </div>
             <div className="caution w-full h-[5vh] flex flex-col items-center">
-              <p className="text-white text-xs">
+              <p className="text-white text-xs py-1">
                 MatzGPT can make mistakes. Check important info.
               </p>
             </div>

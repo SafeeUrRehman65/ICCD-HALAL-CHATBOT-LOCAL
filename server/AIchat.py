@@ -86,6 +86,7 @@ workflow = StateGraph(state_schema = MessagesState)
 prompt_template = ChatPromptTemplate.from_messages(
     [("system", system_message_global),
     MessagesPlaceholder(variable_name = "messages")]
+
 )
 
 trimmer = trim_messages(
@@ -140,8 +141,8 @@ duck_duck_go_search = DuckDuckGoSearchRun(api_wrapper=wrapper)
 #     topic = "general"
 # )
 
-tools = [duck_duck_go_search]
-tavily_node = ToolNode(tools)
+tools = []
+duck_node = ToolNode(tools)
 
 
 # initialize qa_llm with the tavily search tool
@@ -156,7 +157,7 @@ config = {"configurable": {"thread_id": "xyz123"}}
 
 # compile workflow with nodes and edges
 workflow.add_node("model", call_model )
-workflow.add_node("tavily_tool_call_node", tavily_node)
+workflow.add_node("tavily_tool_call_node", duck_node)
 
 workflow.add_edge(START, "model")
 
