@@ -4,7 +4,16 @@ const cors = require("cors");
 const path = require("path");
 const app = express();
 
-app.use(cors());
+// ✅ Setup CORS middleware
+app.use(
+  cors({
+    origin: "https://iccd-halal-chatbot-local.vercel.app", // your frontend Vercel domain
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
+app.options("*", cors());
 app.use(morgan("dev"));
 
 // Middleware
