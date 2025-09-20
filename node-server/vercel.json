@@ -1,6 +1,6 @@
 {
   "functions": {
-    "src/server.js": {
+    "src/pages/server.js": {
       "maxDuration": 30
     }
   }

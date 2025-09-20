@@ -1,5 +1,5 @@
-const app = require("./app.js");
-const config = require("./config/index.js");
+const app = require("../app.js");
+const config = require("../config/index.js");
 
 const PORT = config.port;
 
