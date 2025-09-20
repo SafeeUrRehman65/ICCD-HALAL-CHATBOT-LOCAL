@@ -127,15 +127,18 @@ function App() {
   const sendPromptToServer = async (prompt) => {
     console.log("first log", prompt);
     try {
-      const response = await fetch(import.meta.env.VITE_FETCH_AI_RESPONSE_API, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_FETCH_AI_RESPONSE_API}/api/users`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt,
+          }),
+        }
+      );
 
       const data = await response.json();
       console.log("AI Response", data);
