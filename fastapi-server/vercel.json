@@ -4,14 +4,14 @@
   "version": 3,
   "builds": [
     {
-      "src": "/fastapi/AIchat.py",
+      "src": "/fastapi-server/AIchat.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/fastapi/AIchat.py"
+      "dest": "/fastapi-server/AIchat.py"
     }
   ]
 }

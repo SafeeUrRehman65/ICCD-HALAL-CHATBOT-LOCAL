@@ -127,7 +127,7 @@ function App() {
   const sendPromptToServer = async (prompt) => {
     console.log("first log", prompt);
     try {
-      const response = await fetch(process.env.FETCH_AI_RESPONSE_API, {
+      const response = await fetch(import.meta.env.VITE_FETCH_AI_RESPONSE_API, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -198,8 +198,8 @@ function App() {
 
   useEffect(() => {
     const handleInputPrompt = () => {
-      if (promptText.current) {
-        if (promptText.current.value != "") {
+      if (PromptRef.current) {
+        if (PromptRef.current.value != "") {
           if (VoiceBoxRef.current) VoiceBoxRef.current.classList.add("hidden");
           if (EnterPromptRef.current)
             EnterPromptRef.current.classList.remove("hidden");
@@ -212,8 +212,7 @@ function App() {
       }
     };
 
-    // const inputEl = PromptRef.current;
-    const inputEl = promptText;
+    const inputEl = PromptRef.current;
     if (inputEl) {
       inputEl.addEventListener("input", handleInputPrompt);
       inputEl.addEventListener("keydown", handleInputPrompt); // 🔄 NEW LINE
@@ -290,7 +289,7 @@ function App() {
             <div className="input-box w-full flex justify-center">
               <div className="w-[95%] h-[14vh] shadow-md backdrop-blur-md bg-[#303030] rounded-3xl wrap-text border border-[#e8e8e8]/10">
                 <textarea
-                  // ref={PromptRef}
+                  ref={PromptRef}
                   value={promptText}
                   className="text-md text-white placeholder-[#b1b1b1] w-full h-[7vh] px-4 focus:outline-none whitespace-pre-wrap break-words resize-none overflow-hidden flex placeholder pt-3"
                   type="text"

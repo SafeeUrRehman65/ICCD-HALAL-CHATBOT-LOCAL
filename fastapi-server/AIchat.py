@@ -15,7 +15,7 @@ from langchain_core.messages import HumanMessage,SystemMessage, trim_messages
 from langgraph.prebuilt import create_react_agent
 from langchain_community.agent_toolkits import SQLDatabaseToolkit
 from fastapi import FastAPI, Query, HTTPException
-from magnum import Magnum
+from mangum import Mangum
 from prompts import halal_db_prompt, halal_db_greeting_prompt
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
@@ -222,4 +222,4 @@ def invoke_agent(question: QuestionRequest):
 
 #     #     print(step)
 
-handler = Magnum(app, Lifespan="off")
+handler = Mangum(app, lifespan= 'off')
