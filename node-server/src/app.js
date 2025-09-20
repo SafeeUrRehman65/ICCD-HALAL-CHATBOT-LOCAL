@@ -13,7 +13,6 @@ app.use(
   })
 );
 
-app.options("*", cors());
 app.use(morgan("dev"));
 
 // Middleware
