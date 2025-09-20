@@ -1,4 +1,10 @@
 {
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    }
+  ],
   "functions": {
     "api/server.js": {
       "maxDuration": 30
