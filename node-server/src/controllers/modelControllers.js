@@ -12,7 +12,4 @@ const ModelInfo = async (req, res) => {
   }
 };
 
-
 module.exports = { ModelInfo };
-
-

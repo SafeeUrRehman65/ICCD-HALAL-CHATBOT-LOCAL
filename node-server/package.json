@@ -4,7 +4,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm build"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +16,7 @@
   "description": "",
   "dependencies": {
     "@huggingface/inference": "^4.5.3",
+    "axios": "^1.12.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
