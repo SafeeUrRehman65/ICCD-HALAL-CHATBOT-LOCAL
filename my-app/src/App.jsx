@@ -128,7 +128,7 @@ function App() {
     console.log("first log", prompt);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_FETCH_AI_RESPONSE_API}/api/users`,
+        `${import.meta.env.VITE_FETCH_AI_RESPONSE_API}api/users`,
         {
           method: "POST",
           headers: {
