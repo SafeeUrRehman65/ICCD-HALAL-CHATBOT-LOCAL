@@ -1,3 +1,3 @@
-.env
-server/.env
-.env
+my-app/.env
+node-server/.env
+fastapi-server/.env
